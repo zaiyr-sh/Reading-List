@@ -18,8 +18,9 @@ public class ReadingListController {
         this.readingListRepository = readingListRepository;
     }
 
-
-    @GetMapping(value = "/")
+    //    @RequestMapping(value = "/{reader}", method = RequestMethod.GET)GET
+//    @GetMapping(value = "/{reader}")
+    @GetMapping(value = "/readinglist")
     public String readersBooks(String reader, Model model) {
         List<Book> readingList = readingListRepository.findByReader(reader);
         if (readingList != null) {
@@ -28,10 +29,16 @@ public class ReadingListController {
         return "readingList";
     }
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "/readinglist")
     public String addToReadingList( String reader, Book book) {
         book.setReader(reader);
         readingListRepository.save(book);
-        return "redirect:/";
+        return "redirect:/readinglist";
     }
+
+    @GetMapping(value = "/")
+    public String ind(){
+        return "redirect:/readinglist";
+    }
+
 }
